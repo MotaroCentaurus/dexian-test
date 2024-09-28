@@ -61,6 +61,10 @@ $app->singleton(
 
 $app->configure('app');
 
+collect(scandir(__DIR__ . '/../config'))->each(function ($item) use ($app) {
+    $app->configure(basename($item, '.php'));
+});
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -94,6 +98,8 @@ $app->configure('app');
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register('Sentry\Laravel\ServiceProvider');
+$app->register('Sentry\Laravel\Tracing\ServiceProvider');
 
 /*
 |--------------------------------------------------------------------------
