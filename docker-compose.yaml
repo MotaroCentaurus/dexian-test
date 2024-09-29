@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: container-postgresql-dexian
+    ports:
+      - ${POSTGRES_BIND_PORT}:5432
+    environment:
+      - POSTGRES_DB=${POSTGRES_DATABASE_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGDATA=${POSTGRES_DATA}
+    volumes:
+      - ./.docker/postgres/data:${POSTGRES_DATA}:rw
+    networks:
+      - dev-network
+
+  pgadmin-docker:
+    image: dpage/pgadmin4
+    container_name: container-pgadmin-dexian
+    environment:
+      PGADMIN_DEFAULT_EMAIL: me@example.com
+      PGADMIN_DEFAULT_PASSWORD: 1234567
+    ports:
+      - 5050:80
+    volumes:
+      - ./.docker/pgadmin:/var/lib/pgadmin:rw
+    depends_on:
+      - postgres
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+    driver: bridge
