@@ -7,8 +7,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 $dotenv = Dotenv::createMutable(__DIR__ . '/../');
 $dotenv->load();
 
-//Dotenv\Dotenv::load(__DIR__.'/../');
-
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
 ))->bootstrap();
@@ -30,9 +28,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -87,9 +85,9 @@ collect(scandir(__DIR__ . '/../config'))->each(function ($item) use ($app) {
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -103,10 +101,11 @@ collect(scandir(__DIR__ . '/../config'))->each(function ($item) use ($app) {
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register('Sentry\Laravel\ServiceProvider');
 $app->register('Sentry\Laravel\Tracing\ServiceProvider');
+$app->register('Tymon\JWTAuth\Providers\LumenServiceProvider');
 
 /*
 |--------------------------------------------------------------------------
