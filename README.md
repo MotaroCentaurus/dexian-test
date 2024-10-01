@@ -1,5 +1,6 @@
 # Pastry Shop API
 This API is designed to manage orders, products, and clients for a pastry shop. The project is built using Lumen, PHP, PostgreSQL, and Docker. Below are the steps to get the project up and running.
+This application runs using `Docker`, `docker compose`, sends email via `mailtrap.io` and has `sentry.io` as profile tool.
 
 ## Prerequisites
 - Docker
