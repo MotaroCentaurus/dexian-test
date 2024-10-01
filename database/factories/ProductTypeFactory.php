@@ -13,9 +13,9 @@ class ProductTypeFactory extends Factory
     {
         return [
             'product_type' => $this->faker->unique()->randomElement([
-                'Eletronics',
-                'Video Games',
-                'TV'
+                'Torta',
+                'Pastel',
+                'Bolo'
             ]),
         ];
     }

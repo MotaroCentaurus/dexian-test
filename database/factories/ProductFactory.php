@@ -16,9 +16,9 @@ class ProductFactory extends Factory
 
         return [
             'product_name' => $this->faker->unique()->randomElement([
-                'iPhone 15',
-                'Apple Vison',
-                'Playstation 5'
+                'Pastel de Queijo',
+                'Bolo de Chocolate',
+                'Torta de Maçã'
             ]),
             'price' => $this->faker->randomNumber(2),
             'photo' => hash('sha256', (microtime(1) - $time) * 1000) . '.jpg',
