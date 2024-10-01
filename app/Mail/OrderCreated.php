@@ -17,7 +17,7 @@ class OrderCreated extends Mailable
 
     public function build()
     {
-        return $this->from('noreply@yourdomain.com')
+        return $this->from(env('MAIL_FROM_ADDRESS', 'noreply@yourdomain.com'))
                     ->subject('Order Confirmation')
                     ->view('emails.order_created')
                     ->with([
