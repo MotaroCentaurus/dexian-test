@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   postgres:
     image: postgres:latest
     container_name: container-postgresql-dexian
@@ -15,7 +14,9 @@ services:
     volumes:
       - ./.docker/postgres/data:${POSTGRES_DATA}:rw
     networks:
-      - dev-network
+      - dexian-network
+    depends_on:
+      - lumen
 
   pgadmin-docker:
     image: dpage/pgadmin4
@@ -30,8 +31,22 @@ services:
     depends_on:
       - postgres
     networks:
-      - dev-network
+      - dexian-network
+
+  lumen:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: container-lumen-dexian
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/var/www:rw
+    networks:
+      - dexian-network
+    depends_on:
+      - postgres
 
 networks:
-  dev-network:
+  dexian-network:
     driver: bridge
