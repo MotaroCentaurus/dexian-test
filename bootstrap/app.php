@@ -106,6 +106,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register('Sentry\Laravel\ServiceProvider');
 $app->register('Sentry\Laravel\Tracing\ServiceProvider');
 $app->register('Tymon\JWTAuth\Providers\LumenServiceProvider');
+$app->register(Illuminate\Mail\MailServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
