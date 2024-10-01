@@ -1,105 +1,26 @@
-# Pastry Shop API
-This API is designed to manage orders, products, and clients for a pastry shop. The project is built using Lumen, PHP, PostgreSQL, and Docker. Below are the steps to get the project up and running.
+# Lumen PHP Framework
 
-## Prerequisites
-- Docker
-- Docker Compose
-- PostgreSQL
-- PgAdmin (optional but recommended)
+[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
+[![Total Downloads](https://img.shields.io/packagist/dt/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
+[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/lumen-framework)](https://packagist.org/packages/laravel/lumen-framework)
+[![License](https://img.shields.io/packagist/l/laravel/lumen)](https://packagist.org/packages/laravel/lumen-framework)
 
-## Setup
-1. **Copy the .env file**
+Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
-Copy the example environment configuration file .env.example to .env. This file contains configuration variables such as database credentials, app key, and other project settings.
+> **Note:** In the years since releasing Lumen, PHP has made a variety of wonderful performance improvements. For this reason, along with the availability of [Laravel Octane](https://laravel.com/docs/octane), we no longer recommend that you begin new projects with Lumen. Instead, we recommend always beginning new projects with [Laravel](https://laravel.com).
 
-```bash
-cp .env.example .env
-```
+## Official Documentation
 
-2. **Generate JWT Secret**
+Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
 
-After setting up the .env file, generate a new JWT secret key by running the following command:
+## Contributing
 
-```bash
-php artisan jwt:secret
-```
+Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-This command generates a secret key used by the JWT (JSON Web Token) package to sign tokens for user authentication. This key will be stored in the `.env` file as `JWT_SECRET`.
+## Security Vulnerabilities
 
-## Database Setup
-### Create the database using PgAdmin
-To create the `pastry` database using `PgAdmin`:
+If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-1. **Open PgAdmin in your browser by navigating to `http://localhost:5050`.**
-2. **Log in using the credentials set in your `docker-compose.yml`.**
-3. **Right-click on "Databases", choose "Create", and fill in the necessary information to create a new database called `pastry`.**
+## License
 
-    Important: If PgAdmin doesn't start, ensure that the directory `.docker/pgadmin` contains two subdirectories: `session` and `storage`.
-
-```bash
-mkdir -p .docker/pgadmin/session .docker/pgadmin/storage
-```
-
-### Run Migrations and Seeds
-Once your database is ready, execute the following commands to run the database migrations and seed data:
-
-```bash
-php artisan migrate
-php artisan db:seed
-```
-
-These commands will set up the necessary tables and insert any initial data specified in the seeder files.
-
-## Symbolic Link Setup for File Uploads
-To enable file uploads, you must create a symbolic link between your storage folder and public directory:
-
-```bash
-mkdir -p storage/app/public
-ln -s $(pwd)/storage/app/public $(pwd)/public/storage
-```
-
-This will allow uploaded files to be publicly accessible via the `public/storage` URL.
-
-## Authentication and Login Route
-To log in and obtain a Bearer Access Token, use the `/login` route with a POST request. The route expects a JSON body containing valid credentials. Upon success, it will return a JWT token.
-
-### Example request
-```bash
-POST /login
-{
-    "email": "user@example.com",
-    "password": "password123"
-}
-```
-
-### Example response
-```json
-{
-  "access_token": "your_jwt_token",
-  "token_type": "bearer",
-  "expires_in": 3600
-}
-```
-
-Use this token to authenticate subsequent API requests by including the **Bearer Token** in the `Authorization` header.
-
-```bash
-Authorization: Bearer your_jwt_token
-```
-
-## Other Routes
-Once authenticated, you can interact with various API routes, such as:
-
-- /products: List, create, update, and delete products.
-- /orders: List, create, and update orders.
-- /clients: Manage client data.
-Make sure to pass the **Bearer Token** in the `Authorization` header for all requests that require authentication.
-
-## Running Tests
-To run the unit tests:
-
-```bash
-vendor/bin/phpunit
-```
-
-The test suite includes various tests for models and controllers, ensuring the correct functionality of the API.
+The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
