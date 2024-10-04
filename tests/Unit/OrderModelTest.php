@@ -29,4 +29,45 @@ class OrderModelTest extends TestCase
         $this->assertInstanceOf(Product::class, $order->products->first());
     }
 
+    public function test_order_can_be_created()
+    {
+        $order = Order::factory()->create();
+        $foundOrder = Order::find($order->order_id);
+
+        $this->assertNotNull($order);
+        $this->assertNotNull($foundOrder);
+        $this->assertEquals($order->order_id, $foundOrder->order_id);
+    }
+
+    public function test_order_can_be_updated()
+    {
+        $order = Order::factory()->create();
+        $newClient = Client::factory()->create();
+
+        $order->update(['client_id' => $newClient->client_id]);
+
+        $foundOrder = Order::find($order->order_id);
+
+        $this->assertEquals($foundOrder->client_id, $newClient->client_id);
+    }
+
+    public function test_order_can_be_read()
+    {
+        $order = Order::factory()->create();
+
+        $foundOrder = Order::find($order->order_id);
+
+        $this->assertEquals($order->client_id, $foundOrder->client_id);
+    }
+
+    public function test_order_can_be_deleted()
+    {
+        $order = Order::factory()->create();
+
+        $order->delete();
+
+        $foundOrder = Order::find($order->order_id);
+
+        $this->assertEmpty($foundOrder);
+    }
 }
