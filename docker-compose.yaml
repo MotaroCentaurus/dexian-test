@@ -15,8 +15,6 @@ services:
       - ./.docker/postgres/data:${POSTGRES_DATA}:rw
     networks:
       - dexian-network
-    depends_on:
-      - lumen
 
   pgadmin-docker:
     image: dpage/pgadmin4
