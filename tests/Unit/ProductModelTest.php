@@ -20,7 +20,7 @@ class ProductModelTest extends TestCase
         $this->assertInstanceOf(ProductType::class, $product->productType);
     }
 
-    public function test_product_can_be_created()
+    public function testProductCanBeCreated()
     {
         $product = Product::factory()->create();
         $foundProduct = Product::find($product->product_id);
@@ -30,7 +30,7 @@ class ProductModelTest extends TestCase
         $this->assertEquals($product->product_id, $foundProduct->product_id);
     }
 
-    public function test_product_can_be_updated()
+    public function testProductCanBeUpdated()
     {
         $product = Product::factory()->create();
 
@@ -41,7 +41,7 @@ class ProductModelTest extends TestCase
         $this->assertEquals($foundProduct->product_name, 'Updated Product');
     }
 
-    public function test_product_can_be_read()
+    public function testProductCanBeRead()
     {
         $product = Product::factory()->create();
 
@@ -50,7 +50,7 @@ class ProductModelTest extends TestCase
         $this->assertEquals($product->product_name, $foundProduct->product_name);
     }
 
-    public function test_product_can_be_deleted()
+    public function testProductCanBeDeleted()
     {
         $product = Product::factory()->create();
 
