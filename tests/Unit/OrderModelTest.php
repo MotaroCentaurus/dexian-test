@@ -29,7 +29,7 @@ class OrderModelTest extends TestCase
         $this->assertInstanceOf(Product::class, $order->products->first());
     }
 
-    public function test_order_can_be_created()
+    public function testOrderrderCanBeCreated()
     {
         $order = Order::factory()->create();
         $foundOrder = Order::find($order->order_id);
@@ -39,7 +39,7 @@ class OrderModelTest extends TestCase
         $this->assertEquals($order->order_id, $foundOrder->order_id);
     }
 
-    public function test_order_can_be_updated()
+    public function testOrderCanBeUpdated()
     {
         $order = Order::factory()->create();
         $newClient = Client::factory()->create();
@@ -51,7 +51,7 @@ class OrderModelTest extends TestCase
         $this->assertEquals($foundOrder->client_id, $newClient->client_id);
     }
 
-    public function test_order_can_be_read()
+    public function testOrderCanBeRead()
     {
         $order = Order::factory()->create();
 
@@ -60,7 +60,7 @@ class OrderModelTest extends TestCase
         $this->assertEquals($order->client_id, $foundOrder->client_id);
     }
 
-    public function test_order_can_be_deleted()
+    public function testOrderCanBeDeleted()
     {
         $order = Order::factory()->create();
 

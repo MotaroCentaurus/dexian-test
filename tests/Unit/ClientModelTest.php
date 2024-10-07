@@ -31,7 +31,7 @@ class ClientModelTest extends TestCase
         $this->assertEquals($client->client_id, $foundClient->client_id);
     }
 
-    public function test_client_can_be_updated()
+    public function testClientCanBeUpdated()
     {
         $client = Client::factory()->create();
 
@@ -42,7 +42,7 @@ class ClientModelTest extends TestCase
         $this->assertEquals($foundClient->client_name, 'Updated Name');
     }
 
-    public function test_client_can_be_read()
+    public function testClientCanBeRead()
     {
         $client = Client::factory()->create();
 
@@ -51,7 +51,7 @@ class ClientModelTest extends TestCase
         $this->assertEquals($client->client_name, $foundClient->client_name);
     }
 
-    public function test_client_can_be_deleted()
+    public function testClientCanBeDeleted()
     {
         $client = Client::factory()->create();
 

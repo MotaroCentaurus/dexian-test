@@ -116,6 +116,11 @@ $app->bind(
     App\Repositories\ClientRepository::class
 );
 
+$app->bind(
+    App\Repositories\OrderRepositoryInterface::class,
+    App\Repositories\OrderRepository::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

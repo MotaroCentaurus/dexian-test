@@ -11,7 +11,7 @@ class ProductTypeModelTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
 
-    public function test_product_type_can_be_created()
+    public function testProductTypeCanBeCreated()
     {
         $productType = ProductType::factory()->create();
         $foundProductType = ProductType::find($productType->product_type_id);
@@ -21,7 +21,7 @@ class ProductTypeModelTest extends TestCase
         $this->assertEquals($productType->product_type_id, $foundProductType->product_type_id);
     }
 
-    public function test_product_type_can_be_updated()
+    public function testProductTypeCanBeUpdated()
     {
         $productType = ProductType::factory()->create();
 
@@ -32,7 +32,7 @@ class ProductTypeModelTest extends TestCase
         $this->assertEquals($foundProductType->product_type, 'Updated Type');
     }
 
-    public function test_product_type_can_be_read()
+    public function testProductTypeCanBeRead()
     {
         $productType = ProductType::factory()->create();
 
@@ -41,7 +41,7 @@ class ProductTypeModelTest extends TestCase
         $this->assertEquals($productType->product_type, $foundProductType->product_type);
     }
 
-    public function test_product_type_can_be_deleted()
+    public function testProductTypeCanBeDeleted()
     {
         $productType = ProductType::factory()->create();
 
