@@ -108,6 +108,14 @@ $app->register('Sentry\Laravel\Tracing\ServiceProvider');
 $app->register('Tymon\JWTAuth\Providers\LumenServiceProvider');
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 
+/**
+ * Dependency Injection Container Binds
+ */
+$app->bind(
+    App\Repositories\ClientRepositoryInterface::class,
+    App\Repositories\ClientRepository::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

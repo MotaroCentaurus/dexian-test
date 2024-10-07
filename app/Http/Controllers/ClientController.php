@@ -4,61 +4,87 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Repositories\ClientRepositoryInterface;
 
 class ClientController extends Controller
 {
+    private $clientRepository;
+
+    public function __construct(ClientRepositoryInterface $clientRepository)
+    {
+        $this->clientRepository = $clientRepository;
+    }
+
     public function index()
     {
-        $clients = Client::with('orders.products')->get();
+        $clients = $this->clientRepository->read();
         return response()->json($clients);
     }
 
     public function show($id)
     {
-        $client = Client::with('orders.products')->find($id);
+        $result = $this->clientRepository->readOne($id);
 
-        if (!$client) {
-            return response()->json(['error' => 'Client not found'], 404);
+        if (!($result instanceof Client)) {
+            return response()->json($result, 404);
         }
 
-        return response()->json($client);
+        return response()->json($result);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'client_name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:clients',
             'telephone' => 'required|string',
         ]);
 
-        $client = Client::create($request->all());
+    $result = $this->clientRepository->create($request->all());
 
-        return response()->json($client, 201);
+        if (!($result instanceof Client)) {
+            return response()->json($result, 401);
+        }
+
+        return response()->json($result, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $client = Client::find($id);
+        $this->validate($request, [
+            'client_name' => 'string|max:255',
+            'email' => 'email|unique:clients',
+            'telephone' => 'string',
+        ]);
 
-        if (!$client) {
-            return response()->json(['error' => 'Client not found'], 404);
+        $client = $this->clientRepository->readOne($id);
+
+        if (!($client instanceof Client)) {
+            return response()->json($client, 404);
         }
 
-        $client->update($request->all());
+        $hasBeenUpdated = $this->clientRepository->update($client, $request->all());
+
+        if (!$hasBeenUpdated) {
+            return response()->json(['error' => 'Client has not been updated.'], 401);
+        }
 
         return response()->json($client);
     }
 
     public function destroy($id)
     {
-        $client = Client::find($id);
+        $client = $this->clientRepository->readOne($id);
 
-        if (!$client) {
-            return response()->json(['error' => 'Client not found'], 404);
+        if (!($client instanceof Client)) {
+            return response()->json($client, 404);
         }
 
-        $client->delete();
+        $hasBeenDeleted = $this->repository->delete($id);
+
+        if (!$hasBeenDeleted) {
+            return response()->json(['error' => 'Client has not been deleted.'], 401);
+        }
 
         return response()->json(['message' => 'Client deleted']);
     }
